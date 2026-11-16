@@ -10,7 +10,7 @@ namespace GestaoProcessosBDPOO.Models
         public string NumProtocolo { get; set; } = string.Empty; //conferir string.Empty
         public DateOnly DataAbertura { get; set; }
         public DateOnly? DataPrazo { get; set; }
-        public DateOnly? DataConclusao { get; set; } //conferir ?
+        public DateOnly? DataConclusao { get; set; } //conferir (?)
         public string Status { get; set; } = string.Empty;
         public int FK_clienteID { get; set; }
         public int FK_servicoID { get; set; }
