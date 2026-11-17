@@ -6,7 +6,7 @@ namespace GestaoProcessosBDPOO.Models
 {
     internal class Processo
     {
-        public int ProcessoId { get; set; }
+        public int ProcessoID { get; set; }
         public string NumProtocolo { get; set; } = string.Empty; //conferir string.Empty
         public DateOnly DataAbertura { get; set; }
         public DateOnly? DataPrazo { get; set; }
