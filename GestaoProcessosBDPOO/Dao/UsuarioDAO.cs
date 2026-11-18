@@ -135,7 +135,7 @@ namespace GestaoProcessosBDPOO.Dao
                         {
                             Usuario usuario = new Usuario
                             {
-                                UsuarioID = Convert.ToInt32(dr["servicoID"]),
+                                UsuarioID = Convert.ToInt32(dr["usuarioID"]),
                                 Nome = dr["nome"].ToString() ?? string.Empty,
                                 Email = dr["email"].ToString() ?? string.Empty,
                                 Senha = dr["senha"].ToString() ?? string.Empty,
