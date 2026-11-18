@@ -7,10 +7,10 @@ namespace GestaoProcessosBDPOO.Models
     internal class Processo
     {
         public int ProcessoID { get; set; }
-        public string NumProtocolo { get; set; } = string.Empty; //conferir string.Empty
+        public string NumProtocolo { get; set; } = string.Empty; //serve para as propriedades n ficarem nulas, melhor que construir um método construtor
         public DateOnly DataAbertura { get; set; }
         public DateOnly? DataPrazo { get; set; }
-        public DateOnly? DataConclusao { get; set; } //conferir (?)
+        public DateOnly? DataConclusao { get; set; } //? = serve para permitir que aceite valores nulos
         public string Status { get; set; } = string.Empty;
         public int FK_clienteID { get; set; }
         public int FK_servicoID { get; set; }

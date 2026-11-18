@@ -80,7 +80,7 @@ namespace GestaoProcessosBDPOO.Dao
                     var linhas = cmd.ExecuteNonQuery();
 
                     if (linhas == 0)
-                        throw new Exception("Nenhum registro foi atualizado (verifique o processoID).");
+                        throw new Exception("Nenhum registro foi atualizado, verifique o processoID.");
                 }
             }
             catch (Exception ex)
@@ -182,7 +182,7 @@ namespace GestaoProcessosBDPOO.Dao
                         }
                         else
                         {
-                            throw new Exception("Nenhum processo encontrado com esse ID");
+                            throw new Exception("Nenhum processo encontrado com esse ID.");
                         }
                     }
                 }
