@@ -12,7 +12,7 @@ namespace GestaoProcessosBDPOO.Models
         public DateOnly DataEmissao { get; set; }
         public DateOnly? DataValidade { get; set; }
         public DateOnly? DataRecebimento { get; set; }
-        public string Situacao { get; set; } = string.Empty; //conferir se vai ser string msm
+        public SituacaoDocumento Situacao { get; set; } = SituacaoDocumento.PENDENTE; 
         public int FK_processoID { get; set; }
     }
 }

@@ -8,7 +8,7 @@ using MySql.Data.MySqlClient;
 
 namespace GestaoProcessosBDPOO.Dao
 {
-    internal class ServicoDAO:IServicoDAO
+    internal class ServicoDAO:IServicoDao
     {
         public void Insert(Servico servico)
         {
@@ -26,7 +26,7 @@ namespace GestaoProcessosBDPOO.Dao
                     else
                         cmd.Parameters.AddWithValue("@descricao", DBNull.Value);
 
-                    cmd.Parameters.AddWithValue("@Ativo", servico.Ativo);
+                    cmd.Parameters.AddWithValue("@ativo", servico.Ativo);
                     cmd.ExecuteNonQuery();
                 }
             }
@@ -39,7 +39,7 @@ namespace GestaoProcessosBDPOO.Dao
         {
             try
             {
-                string sql = @"UPDATE SERVICO SET nome = @nome, descricao = @descricao, ativo = @ativo WHERE servicoID = servicoID";
+                string sql = @"UPDATE SERVICO SET nome = @nome, descricao = @descricao, ativo = @ativo WHERE servicoID = @servicoID";
                 using (var conexao = Conexao.Conectar())
                 using (var cmd = new MySqlCommand(sql, conexao))
                 {

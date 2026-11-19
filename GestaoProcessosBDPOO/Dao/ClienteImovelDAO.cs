@@ -20,7 +20,7 @@ namespace GestaoProcessosBDPOO.Dao
                 using (var cmd = new MySqlCommand(sql, conexao))
                 {
                     cmd.Parameters.AddWithValue("@percentual", vinculo.Percentual);
-                    cmd.Parameters.AddWithValue("@tipoVinculo", vinculo.TipoVinculo);
+                    cmd.Parameters.AddWithValue("@tipoVinculo", vinculo.TipoVinculo.ToString());
                     cmd.Parameters.AddWithValue("@FK_clienteID", vinculo.FK_clienteID);
                     cmd.Parameters.AddWithValue("@FK_imovelID", vinculo.FK_imovelID);
                     cmd.ExecuteNonQuery();
@@ -41,7 +41,7 @@ namespace GestaoProcessosBDPOO.Dao
                 using (var cmd = new MySqlCommand(sql, conexao))
                 {
                     cmd.Parameters.AddWithValue("@percentual", vinculo.Percentual);
-                    cmd.Parameters.AddWithValue("@tipoVinculo", vinculo.TipoVinculo);
+                    cmd.Parameters.AddWithValue("@tipoVinculo", vinculo.TipoVinculo.ToString());
                     cmd.Parameters.AddWithValue("@FK_clienteID", vinculo.FK_clienteID);
                     cmd.Parameters.AddWithValue("@FK_imovelID", vinculo.FK_imovelID);
                     cmd.Parameters.AddWithValue("@vinculoID", vinculo.VinculoID);
@@ -90,7 +90,7 @@ namespace GestaoProcessosBDPOO.Dao
                         {
                             VinculoID = Convert.ToInt32(dr["vinculoID"]),
                             Percentual = Convert.ToDecimal(dr["percentual"]),
-                            TipoVinculo = dr["tipoVinculo"].ToString() ?? string.Empty,
+                            TipoVinculo = Enum.Parse<TipoVinculo>(dr["tipoVinculo"].ToString()!),
                             FK_clienteID = Convert.ToInt32(dr["FK_clienteID"]),
                             FK_imovelID = Convert.ToInt32(dr["FK_imovelID"])
                         };
@@ -121,7 +121,7 @@ namespace GestaoProcessosBDPOO.Dao
                             {
                                 VinculoID = Convert.ToInt32(dr["vinculoID"]),
                                 Percentual = Convert.ToDecimal(dr["percentual"]),
-                                TipoVinculo = dr["tipoVinculo"].ToString() ?? string.Empty,
+                                TipoVinculo = Enum.Parse<TipoVinculo>(dr["tipoVinculo"].ToString()!),
                                 FK_clienteID = Convert.ToInt32(dr["FK_clienteID"]),
                                 FK_imovelID = Convert.ToInt32(dr["FK_imovelID"])
                             };

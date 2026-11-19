@@ -32,8 +32,8 @@ namespace GestaoProcessosBDPOO.Dao
                     else
                         cmd.Parameters.Add("@dataRecebimento", MySqlDbType.Date).Value = DBNull.Value;
 
-                    cmd.Parameters.AddWithValue("@situacao", documento.Situacao);
-                    cmd.Parameters.AddWithValue("@processoID", documento.FK_processoID);
+                    cmd.Parameters.AddWithValue("@situacao", documento.Situacao.ToString());
+                    cmd.Parameters.AddWithValue("@FK_processoID", documento.FK_processoID);
                     cmd.ExecuteNonQuery();
                 }
             }
@@ -64,8 +64,8 @@ namespace GestaoProcessosBDPOO.Dao
                     else
                         cmd.Parameters.Add("@dataRecebimento", MySqlDbType.Date).Value = DBNull.Value;
 
-                    cmd.Parameters.AddWithValue("@situacao", documento.Situacao);
-                    cmd.Parameters.AddWithValue("@processoID", documento.FK_processoID);
+                    cmd.Parameters.AddWithValue("@situacao", documento.Situacao.ToString());
+                    cmd.Parameters.AddWithValue("@FK_processoID", documento.FK_processoID);
                     cmd.Parameters.AddWithValue("@documentoID", documento.DocumentoID);
 
                     var linhas = cmd.ExecuteNonQuery();
@@ -115,7 +115,7 @@ namespace GestaoProcessosBDPOO.Dao
                             NomeArquivo = dr["nomeArquivo"].ToString() ?? string.Empty,
                             TipoDocumento = dr["tipoDocumento"].ToString() ?? string.Empty,
                             DataEmissao = DateOnly.FromDateTime(Convert.ToDateTime(dr["dataEmissao"])),
-                            Situacao = dr["situacao"].ToString() ?? string.Empty,
+                            Situacao = Enum.Parse<SituacaoDocumento>(dr["situacao"].ToString()!),
                             FK_processoID = Convert.ToInt32(dr["FK_processoID"])
                         };
                         if (dr["dataValidade"] != DBNull.Value)
@@ -153,7 +153,7 @@ namespace GestaoProcessosBDPOO.Dao
                                 NomeArquivo = dr["nomeArquivo"].ToString() ?? string.Empty,
                                 TipoDocumento = dr["tipoDocumento"].ToString() ?? string.Empty,
                                 DataEmissao = DateOnly.FromDateTime(Convert.ToDateTime(dr["dataEmissao"])),
-                                Situacao = dr["situacao"].ToString() ?? string.Empty,
+                                Situacao = Enum.Parse<SituacaoDocumento>(dr["situacao"].ToString()!),
                                 FK_processoID = Convert.ToInt32(dr["FK_processoID"])
                             };
                             if (dr["dataValidade"] != DBNull.Value)

@@ -8,7 +8,7 @@ namespace GestaoProcessosBDPOO.Models
     {
         public int VinculoID { get; set; }
         public decimal Percentual { get; set; }
-        public string TipoVinculo { get; set; } = string.Empty;
+        public TipoVinculo TipoVinculo { get; set; }
         public int FK_clienteID { get; set; }
         public int FK_imovelID { get; set; }
     }

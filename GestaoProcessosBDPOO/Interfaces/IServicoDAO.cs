@@ -5,7 +5,7 @@ using System.Text;
 
 namespace GestaoProcessosBDPOO.Interfaces
 {
-    internal interface IServicoDAO:Idao<Servico>
+    internal interface IServicoDao:Idao<Servico>
     {
         Servico BuscarID(int servicoID);
     }

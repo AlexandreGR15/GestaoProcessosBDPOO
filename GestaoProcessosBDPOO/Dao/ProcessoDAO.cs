@@ -25,20 +25,20 @@ namespace GestaoProcessosBDPOO.Dao
                     cmd.Parameters.AddWithValue("@numProtocolo", processo.NumProtocolo);
                     cmd.Parameters.Add("@dataAbertura", MySqlDbType.Date).Value = processo.DataAbertura.ToDateTime(TimeOnly.MinValue);
                     if (processo.DataPrazo.HasValue)
-                        cmd.Parameters.Add(@"dataPrazo", MySqlDbType.Date).Value = processo.DataPrazo.Value.ToDateTime(TimeOnly.MinValue);
+                        cmd.Parameters.Add("@dataPrazo", MySqlDbType.Date).Value = processo.DataPrazo.Value.ToDateTime(TimeOnly.MinValue);
                     else
-                        cmd.Parameters.Add(@"dataPrazo", MySqlDbType.Date).Value = DBNull.Value;
+                        cmd.Parameters.Add("@dataPrazo", MySqlDbType.Date).Value = DBNull.Value;
 
                     if (processo.DataConclusao.HasValue)
-                        cmd.Parameters.Add(@"dataConclusao", MySqlDbType.Date).Value = processo.DataConclusao.Value.ToDateTime(TimeOnly.MinValue);
+                        cmd.Parameters.Add("@dataConclusao", MySqlDbType.Date).Value = processo.DataConclusao.Value.ToDateTime(TimeOnly.MinValue);
                     else
-                        cmd.Parameters.Add(@"dataConclusao", MySqlDbType.Date).Value = DBNull.Value;
+                        cmd.Parameters.Add("@dataConclusao", MySqlDbType.Date).Value = DBNull.Value;
 
-                    cmd.Parameters.AddWithValue(@"status", processo.Status);
-                    cmd.Parameters.AddWithValue(@"FK_clienteID", processo.FK_clienteID);
-                    cmd.Parameters.AddWithValue(@"FK_servicoID", processo.FK_servicoID);
-                    cmd.Parameters.AddWithValue(@"FK_usuarioID", processo.FK_usuarioID);
-                    cmd.Parameters.AddWithValue(@"FK_imovelID", processo.FK_imovelID);
+                    cmd.Parameters.AddWithValue("@status", processo.Status.ToString());
+                    cmd.Parameters.AddWithValue("@FK_clienteID", processo.FK_clienteID);
+                    cmd.Parameters.AddWithValue("@FK_servicoID", processo.FK_servicoID);
+                    cmd.Parameters.AddWithValue("@FK_usuarioID", processo.FK_usuarioID);
+                    cmd.Parameters.AddWithValue("@FK_imovelID", processo.FK_imovelID);
                     cmd.ExecuteNonQuery();
                 }
             }
@@ -52,7 +52,7 @@ namespace GestaoProcessosBDPOO.Dao
             try
             {
                 string sql = @"UPDATE PROCESSO SET numProtocolo = @numProtocolo, dataAbertura = @dataAbertura, dataPrazo = @dataPrazo,
-                                                   dataConclusao = @dataConclusao, status = @status, FK_clienteID = @FK_ clienteID,
+                                                   dataConclusao = @dataConclusao, status = @status, FK_clienteID = @FK_clienteID,
                                                    FK_servicoID = @FK_servicoID, FK_usuarioID = @FK_usuarioID, FK_imovelID = @FK_imovelID 
                                WHERE processoID = @processoID";
                 using (var conexao = Conexao.Conectar())
@@ -71,7 +71,7 @@ namespace GestaoProcessosBDPOO.Dao
                     else
                         cmd.Parameters.Add("@dataConclusao", MySqlDbType.Date).Value = DBNull.Value;
 
-                    cmd.Parameters.AddWithValue("@status", processo.Status);
+                    cmd.Parameters.AddWithValue("@status", processo.Status.ToString());
                     cmd.Parameters.AddWithValue("@FK_clienteID", processo.FK_clienteID);
                     cmd.Parameters.AddWithValue("@FK_servicoID", processo.FK_servicoID);
                     cmd.Parameters.AddWithValue("@FK_usuarioID", processo.FK_usuarioID);
@@ -88,7 +88,7 @@ namespace GestaoProcessosBDPOO.Dao
                 throw new Exception(ex.Message);
             }
         }
-        public void Delete(int processoID)
+        public void Delete(int id)
         {
             try
             {
@@ -96,7 +96,7 @@ namespace GestaoProcessosBDPOO.Dao
                 using(var conexao = Conexao.Conectar())
                 using(var cmd = new MySqlCommand(sql, conexao))
                 {
-                    cmd.Parameters.AddWithValue("@processoID", processoID);
+                    cmd.Parameters.AddWithValue("@processoID", id);
                     var linhasAfetadas = cmd.ExecuteNonQuery();
                     if (linhasAfetadas == 0)
                         throw new Exception("Nenhum registro encontrado com esse ID.");
@@ -123,15 +123,15 @@ namespace GestaoProcessosBDPOO.Dao
                         Processo processo = new Processo
                         {
                             ProcessoID = Convert.ToInt32(dr["processoID"]),
-                            NumProtocolo = dr["numProtocolo"].ToString() ?? string.Empty, //pesquisar o que isso tá fazendo
+                            NumProtocolo = dr["numProtocolo"].ToString() ?? string.Empty,
                             DataAbertura = DateOnly.FromDateTime(Convert.ToDateTime(dr["dataAbertura"])),
-                            Status = dr["status"].ToString() ?? string.Empty,
+                            Status = Enum.Parse<StatusProcesso>(dr["status"].ToString()!),
                             FK_clienteID = Convert.ToInt32(dr["FK_clienteID"]),
                             FK_servicoID = Convert.ToInt32(dr["FK_servicoID"]),
                             FK_usuarioID = Convert.ToInt32(dr["FK_usuarioID"]),
                             FK_imovelID = Convert.ToInt32(dr["FK_imovelID"])
                         };
-                        if (dr["dataPrazo"] != DBNull.Value) //pesquisar o por que que fica do lado de fora
+                        if (dr["dataPrazo"] != DBNull.Value) 
                             processo.DataPrazo = DateOnly.FromDateTime(Convert.ToDateTime(dr["dataPrazo"]));
 
                         if (dr["dataConclusao"] != DBNull.Value)
@@ -164,15 +164,15 @@ namespace GestaoProcessosBDPOO.Dao
                             Processo processo = new Processo
                             {
                                 ProcessoID = Convert.ToInt32(dr["processoID"]),
-                                NumProtocolo = dr["numProtocolo"].ToString() ?? string.Empty, //pesquisar o que isso tá fazendo
+                                NumProtocolo = dr["numProtocolo"].ToString() ?? string.Empty, 
                                 DataAbertura = DateOnly.FromDateTime(Convert.ToDateTime(dr["dataAbertura"])),
-                                Status = dr["status"].ToString() ?? string.Empty,
+                                Status = Enum.Parse<StatusProcesso>(dr["status"].ToString()!),
                                 FK_clienteID = Convert.ToInt32(dr["FK_clienteID"]),
                                 FK_servicoID = Convert.ToInt32(dr["FK_servicoID"]),
                                 FK_usuarioID = Convert.ToInt32(dr["FK_usuarioID"]),
                                 FK_imovelID = Convert.ToInt32(dr["FK_imovelID"])
                             };
-                            if (dr["dataPrazo"] != DBNull.Value) //pesquisar o por que que fica do lado de fora
+                            if (dr["dataPrazo"] != DBNull.Value)
                                 processo.DataPrazo = DateOnly.FromDateTime(Convert.ToDateTime(dr["dataPrazo"]));
 
                             if (dr["dataConclusao"] != DBNull.Value)
